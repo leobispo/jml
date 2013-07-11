@@ -104,9 +104,9 @@ expect_csv_row(Parse_Context & context, int length, char separator)
 
 std::string csv_escape(const std::string & s)
 {
-    int quote_pos = s.find('"');
-    int nl_pos = s.find('\n');
-    int comma_pos = s.find(',');
+    auto quote_pos = s.find('"');
+    auto nl_pos = s.find('\n');
+    auto comma_pos = s.find(',');
 
     if (quote_pos == string::npos && nl_pos == string::npos
         && comma_pos == string::npos)
