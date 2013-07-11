@@ -267,7 +267,7 @@ train_iter(const std::vector<const float *> & data,
     distribution<float> outputs;
     outputs.resize(nx2);    
 
-    std::auto_ptr<boost::progress_display> progress;
+    std::unique_ptr<boost::progress_display> progress;
     if (verbosity >= 3) progress.reset(new boost::progress_display(nx2, cerr));
 
     for (unsigned x = 0;  x < nx2;  x += minibatch_size) {
@@ -545,7 +545,7 @@ test(const std::vector<const float *> & data,
 
     int nx = data.size();
 
-    std::auto_ptr<boost::progress_display> progress;
+    std::unique_ptr<boost::progress_display> progress;
     if (verbosity >= 3) progress.reset(new boost::progress_display(nx, cerr));
 
     Worker_Task & worker = thread_context.worker();

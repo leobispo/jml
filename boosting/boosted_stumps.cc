@@ -732,7 +732,7 @@ merge(const Classifier_Impl & other, float weight) const
 
     const Stump * as_stump = dynamic_cast<const Stump *>(&other);
     if (as_stump) {
-        auto_ptr<Boosted_Stumps> me_copy(make_copy());
+        unique_ptr<Boosted_Stumps> me_copy(make_copy());
         me_copy->insert(*as_stump, weight);
         return me_copy.release();
     }
@@ -740,7 +740,7 @@ merge(const Classifier_Impl & other, float weight) const
     const Boosted_Stumps * as_stumps
         = dynamic_cast<const Boosted_Stumps *>(&other);
     if (as_stumps) {
-        auto_ptr<Boosted_Stumps> me_copy(make_copy());
+        unique_ptr<Boosted_Stumps> me_copy(make_copy());
         me_copy->combine(*as_stumps, weight);
         return me_copy.release();
     }

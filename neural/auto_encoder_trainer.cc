@@ -259,7 +259,7 @@ train_iter(Auto_Encoder & encoder,
     
     int nx2 = examples.size();
 
-    std::auto_ptr<boost::progress_display> progress;
+    std::unique_ptr<boost::progress_display> progress;
     if (verbosity >= 3) progress.reset(new boost::progress_display(nx2, cerr));
 
     for (unsigned x = 0;  x < nx2;  x += minibatch_size) {
@@ -356,7 +356,7 @@ train_iter(Auto_Encoder & encoder,
     
     int nx2 = examples.size();
 
-    std::auto_ptr<boost::progress_display> progress;
+    std::unique_ptr<boost::progress_display> progress;
     if (verbosity >= 3) progress.reset(new boost::progress_display(nx2, cerr));
 
     for (unsigned x = 0;  x < nx2;  x += minibatch_size) {
@@ -558,7 +558,7 @@ calc_learning_rate(const Auto_Encoder & layer,
         eig.values[i] = 1 / sqrt(eig.values.size());
 
     // Get a mutable version so that we can modify its parameters
-    auto_ptr<Auto_Encoder> modified(layer.deep_copy());
+    unique_ptr<Auto_Encoder> modified(layer.deep_copy());
     
     // Current set of parameters
     Parameters_Copy<double> params(*modified);
@@ -645,7 +645,7 @@ calc_learning_rates(const Auto_Encoder & layer,
         eig.values[i] = 1 / sqrt(eig.values.size());
 
     // Get a mutable version so that we can modify its parameters
-    auto_ptr<Auto_Encoder> modified(layer.deep_copy());
+    unique_ptr<Auto_Encoder> modified(layer.deep_copy());
     
     // Current set of parameters
     Parameters_Copy<double> params(*modified);
@@ -1008,7 +1008,7 @@ test_and_update(const Auto_Encoder & encoder,
 
     int nx = data_in.size();
 
-    std::auto_ptr<boost::progress_display> progress;
+    std::unique_ptr<boost::progress_display> progress;
     if (verbosity >= 3) progress.reset(new boost::progress_display(nx, cerr));
 
     Worker_Task & worker = thread_context.worker();

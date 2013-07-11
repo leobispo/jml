@@ -404,7 +404,7 @@ merge(const Classifier_Impl & other, float weight) const
 {
     const Stump * as_stump = dynamic_cast<const Stump *>(&other);
     if (as_stump) {
-        auto_ptr<Boosted_Stumps>
+        unique_ptr<Boosted_Stumps>
             result(new Boosted_Stumps(feature_space(), predicted()));
         result->insert(*this, 1.0);
         result->insert(*as_stump, weight);
