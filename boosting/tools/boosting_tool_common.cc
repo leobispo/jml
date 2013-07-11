@@ -185,9 +185,19 @@ void calc_stats(const Classifier_Impl & current,
     double correct = 0.0, total = 0.0;
     vector<unsigned> num_label(nl);
 
+#ifdef __clang__
+    std::vector<std::vector<Graphic_Metrics>> metrics(2);
+    metrics[0].resize(nl);
+    metrics[1].resize(nl);
+
+    std::vector<Graphic_Metrics> margins(nl);
+    std::vector<Graphic_Metrics> rankings(nl);
+#else
     Graphic_Metrics metrics[2][nl];
     Graphic_Metrics margins[nl];
     Graphic_Metrics rankings[nl];
+#endif
+
     Graphic_Metrics correct_graph, incorrect_graph;
     Graphic_Metrics ranking_graph, margin_graph;
 
