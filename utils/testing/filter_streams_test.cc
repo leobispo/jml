@@ -27,6 +27,10 @@
 #include "jml/arch/exception_handler.h"
 #include "jml/arch/demangle.h"
 
+#ifndef BASE_DIR
+#define BASE_DIR "."
+#endif
+
 using namespace std;
 namespace fs = boost::filesystem;
 using namespace ML;
@@ -155,19 +159,19 @@ void test_compress_decompress(const std::string & input_file,
 
 BOOST_AUTO_TEST_CASE( test_compress_decompress_gz )
 {
-    string input_file = "jml/utils/testing/filter_streams_test.cc";
+    string input_file = BASE_DIR "/jml/utils/testing/filter_streams_test.cc";
     test_compress_decompress(input_file, "gz", "gzip", "gzip -d");
 }
 
 BOOST_AUTO_TEST_CASE( test_compress_decompress_bzip2 )
 {
-    string input_file = "jml/utils/testing/filter_streams_test.cc";
+    string input_file = BASE_DIR "/jml/utils/testing/filter_streams_test.cc";
     test_compress_decompress(input_file, "bz2", "bzip2", "bzip2 -d");
 }
 
 BOOST_AUTO_TEST_CASE( test_compress_decompress_xz )
 {
-    string input_file = "jml/utils/testing/filter_streams_test.cc";
+    string input_file = BASE_DIR "/jml/utils/testing/filter_streams_test.cc";
     test_compress_decompress(input_file, "xz", "xz", "xz -d");
 }
 

@@ -473,8 +473,12 @@ BOOST_AUTO_TEST_CASE( test_chunking_stream1 )
 
 void test_csv_data_size(int chunk_size, vector<vector<string> > & reference)
 {
+#ifdef BASE_DIR
+    string input_file = BASE_DIR "/jml/utils/testing/parse_context_test_data.csv.gz";
+#else
     string input_file = Environment::instance()["JML_TOP"]
         + "/utils/testing/parse_context_test_data.csv.gz";
+#endif
 
     cerr << "input_file = " << input_file << endl;
 
