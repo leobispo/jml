@@ -166,7 +166,7 @@ uint32_t atomic_test_and_set(Val1 & val, uint32_t bitNum)
 {
     uint32_t result = 0;
     asm volatile
-        ("lock bts %[bitnum], %[val]\n\t"
+        ("lock btsl %[bitnum], %[val]\n\t"
          "adc      $0, %[result]\n\t"
          : [val] "+m,m" (val), [result] "+r,r" (result)
          : [bitnum] "J,c" ((uint32_t)bitNum)
@@ -179,7 +179,7 @@ bool atomic_test_and_clear(Val1 & val, uint32_t bitNum)
 {
     uint32_t result = 0;
     asm volatile
-        ("lock btr %[bitnum], %[val]\n\t"
+        ("lock btrl %[bitnum], %[val]\n\t"
          "adc      $0, %[result]\n\t"
          : [val] "+m,m" (val), [result] "+r,r" (result)
          : [bitnum] "J,c" ((uint32_t)bitNum)
