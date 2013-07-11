@@ -15,6 +15,60 @@
 #include <cstddef>
 #include <unwind.h>
 
+#ifdef __clang__
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define __unwind_word__ word
+
+/* Level 1: Base ABI  */
+
+/* @@@ The IA-64 ABI uses uint64 throughout.  Most places this is
+   inefficient for 32-bit and smaller machines.  */
+typedef unsigned _Unwind_Word __attribute__((__mode__(__unwind_word__)));
+typedef signed _Unwind_Sword __attribute__((__mode__(__unwind_word__)));
+#if defined(__ia64__) && defined(__hpux__)
+typedef unsigned _Unwind_Ptr __attribute__((__mode__(__word__)));
+#else
+typedef unsigned _Unwind_Ptr __attribute__((__mode__(__pointer__)));
+#endif
+typedef unsigned _Unwind_Internal_Ptr __attribute__((__mode__(__pointer__)));
+
+/* @@@ The IA-64 ABI uses a 64-bit word to identify the producer and
+   consumer of an exception.  We'll go along with this for now even on
+   32-bit machines.  We'll need to provide some other option for
+   16-bit machines and for machines with > 8 bits per byte.  */
+typedef unsigned _Unwind_Exception_Class __attribute__((__mode__(__DI__)));
+
+/* The unwind interface uses a pointer to an exception header object
+   as its representation of an exception being thrown. In general, the
+   full representation of an exception object is language- and
+   implementation-specific, but it will be prefixed by a header
+   understood by the unwind interface.  */
+
+struct _Unwind_Exception;
+
+typedef void (*_Unwind_Exception_Cleanup_Fn) (_Unwind_Reason_Code,
+					      struct _Unwind_Exception *);
+
+struct _Unwind_Exception
+{
+  _Unwind_Exception_Class exception_class;
+  _Unwind_Exception_Cleanup_Fn exception_cleanup;
+  _Unwind_Word private_1;
+  _Unwind_Word private_2;
+
+  /* @@@ The IA-64 ABI says that this structure must be double-word aligned.
+     Taking that literally does not make much sense generically.  Instead we
+     provide the maximum alignment required by any type for the machine.  */
+} __attribute__((__aligned__));
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+
 namespace __cxxabiv1 {
 
 // A C++ exception object consists of a header, which is a wrapper around
