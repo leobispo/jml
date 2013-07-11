@@ -227,7 +227,7 @@ struct Circular_Buffer {
 
         // TODO: exception safety if constructors throw
 
-        unsigned i;
+        int i;
         try {
             for (i = 0;  i < nfirst_half;  ++i)
                 new (new_vals + i) T(vals_[start_ + i]);
@@ -244,7 +244,7 @@ struct Circular_Buffer {
         }
 
         try {
-            for (unsigned i = 0;  i < nsecond_half;  ++i)
+            for (i = 0;  i < nsecond_half;  ++i)
                 new (new_vals + nfirst_half + i) T(vals_[i]);
         } catch (...) {
             for (i -= 1; i >= 0;  --i) {
@@ -252,7 +252,7 @@ struct Circular_Buffer {
                     new_vals[i + nfirst_half].~T();
                 } catch (...) {}
             }
-            for (unsigned i = 0;  i < nfirst_half;  ++i) {
+            for (i = 0;  i < nfirst_half;  ++i) {
                 try {
                     vals_[start_ + i].~T();
                 } catch (...) {}
@@ -520,7 +520,7 @@ private:
             throw Exception("negative size");
         if (capacity_ < 0)
             throw Exception("negaive capacity");
-        if (size_ > capacity)
+        if (size_ > capacity_)
             throw Exception("capacity too high");
         if (start_ > size_ || (start_ == size_ && size_ != 0))
             throw Exception("start too far");
