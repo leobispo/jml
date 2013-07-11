@@ -54,6 +54,9 @@ template<typename T>
 JML_ALWAYS_INLINE JML_PURE_FN JML_COMPUTE_METHOD
 T shrd(T low, T high, shift_t bits)
 {
+#ifdef __clang__
+    return shrd_emulated(low, high, bits);
+#else
     enum { TBITS = sizeof(T) * 8 };
     if (JML_UNLIKELY(bits > TBITS)) return 0;
 
@@ -64,7 +67,7 @@ T shrd(T low, T high, shift_t bits)
             );
 
     return low;
-
+#endif
 }
 
 // There's no 8 bit shrd instruction available
