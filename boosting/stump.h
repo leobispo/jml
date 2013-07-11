@@ -47,9 +47,9 @@ public:
     /** Apply to a distribution, updating in place */
     void apply(Label_Dist & result, const Split::Weights & weights) const
     {
-        if (weights[false])   result += weights[false]   * pred_false;
-        if (weights[true])    result += weights[true]    * pred_true;
-        if (weights[MISSING]) result += weights[MISSING] * pred_missing;
+        if (static_cast<bool>(weights[false]))   result += weights[false]   * pred_false;
+        if (static_cast<bool>(weights[true]))    result += weights[true]    * pred_true;
+        if (static_cast<bool>(weights[MISSING])) result += weights[MISSING] * pred_missing;
     }
 
     /** Apply to a single label */
