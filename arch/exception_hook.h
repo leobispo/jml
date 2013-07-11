@@ -23,6 +23,8 @@
 #ifndef __arch__exception_hook_h__
 #define __arch__exception_hook_h__
 
+#include <typeinfo>
+
 namespace ML {
 
 /** Hook for the function to call when we throw an exception.  The first
