@@ -19,6 +19,24 @@ namespace ML {
 template<unsigned Size>
 struct cmp_xchg_switch {
 
+    JML_ALWAYS_INLINE bool cmp_xchg(double & val, double & old, const double & new_val)
+    {
+        volatile uint64_t *_val           = reinterpret_cast<uint64_t *>(&val);
+        volatile uint64_t *_old           = reinterpret_cast<uint64_t *>(&old);
+        volatile const uint64_t *_new_val = reinterpret_cast<const uint64_t *>(&new_val);
+
+        return cmp_xchg(*_val, *_old, *_new_val);
+    }
+
+    JML_ALWAYS_INLINE bool cmp_xchg(volatile double & val, volatile double & old, volatile const double & new_val)
+    {
+        volatile uint64_t *_val           = reinterpret_cast<volatile uint64_t *>(&val);
+        volatile uint64_t *_old           = reinterpret_cast<volatile uint64_t *>(&old);
+        volatile const uint64_t *_new_val = reinterpret_cast<volatile const uint64_t *>(&new_val);
+
+        return cmp_xchg(_val, _old, _new_val);
+    }
+
     template<class X>
     JML_ALWAYS_INLINE bool cmp_xchg(X & val, X & old, const X & new_val)
     {
