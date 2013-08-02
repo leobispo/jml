@@ -12,7 +12,7 @@ stats_include_HEADERS = \
   rmse.h \
   sparse_distribution.h
 
-stats_includedir = $(includedir)/jml/arch
+stats_includedir = $(includedir)/jml/stats
 
 lib_LTLIBRARIES = libstats.la
 
