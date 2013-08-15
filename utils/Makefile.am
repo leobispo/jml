@@ -124,6 +124,7 @@ TEST_LIB = $(BOOST_THREAD_LIB) \
   $(BOOST_LDFLAGS) \
   $(BOOST_IOSTREAMS_LIB) \
   $(BOOST_SYSTEM_LIB) \
+  $(BOOST_FILESYSTEM_LIB) \
   $(BOOST_UNIT_TEST_FRAMEWORK_LIB) \
   libutils.la \
   $(abs_top_builddir)/jml/arch/libarch.la 
